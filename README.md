@@ -1,0 +1,2 @@
+sky130A.tech文件的精简版
+每一次提交的.tech文件跑通magic后生成的rules文件都一致(nom工艺角)
