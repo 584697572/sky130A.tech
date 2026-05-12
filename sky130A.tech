@@ -1764,10 +1764,12 @@ variants (),(orig),(si)
  resist mrdl/metali		     5
 
  contact ndc,nsc		185000
+ contact ndic,ndilvtc,nndic	185000
  contact pdc,psc		585000
- contact mvndc,mvnsc		185000
- contact mvpdc,mvpsc	  	585000
- contact pc			152000
+ contact pdic,pdilvtc,pdihvtc	585000
+ contact mvndc,mvnsc,mvndic	185000
+ contact mvpdc,mvpsc,mvpdic  	585000
+ contact pc,xpc			152000
  contact mcon			  9300
  contact m2c			  4500
  contact m3c			  3410
@@ -1810,10 +1812,12 @@ variants (hrhc),(hrlc)
  resist mrdl/metali		     5
 
  contact ndc,nsc		280000
+ contact ndic,ndilvtc,nndic	280000
  contact pdc,psc		840000
- contact mvndc,mvnsc		280000
- contact mvpdc,mvpsc	  	840000
- contact pc			252000
+ contact pdic,pdilvtc,pdihvtc	840000
+ contact mvndc,mvnsc,mvndic	280000
+ contact mvpdc,mvpsc,mvpdic  	840000
+ contact pc,xpc			252000
  contact mcon			 23000
  contact m2c			 15000
  contact m3c			  8000
@@ -1856,10 +1860,12 @@ variants (lrhc),(lrlc)
  resist mrdl/metali		     5
 
  contact ndc,nsc		 95000
+ contact ndic,ndilvtc,nndic	 95000
  contact pdc,psc		345000
- contact mvndc,mvnsc		 95000
- contact mvpdc,mvpsc	  	345000
- contact pc			 52000
+ contact pdic,pdilvtc,pdihvtc	345000
+ contact mvndc,mvnsc,mvndic	 95000
+ contact mvpdc,mvpsc,mvpdic  	345000
+ contact pc,xpc			 52000
  contact mcon			  1600
  contact m2c			  2000
  contact m3c			   500
@@ -1898,7 +1904,7 @@ variants *
 # should be split between the two terminals.  Unsure of the correct model.
 #-------------------------------------------------------------------------
 
-variants (),(orig),(si),(hrhc),(lrhc),(hrlc),(lrlc)
+variants (),(orig),(si)
 # Nominal capacitances
 
 #deep n-well
@@ -1932,6 +1938,7 @@ defaultareacap     nwell well dnwell dwell 120
  defaultsidewall    *poly active 17.0
  defaultareacap     *poly active 106.13
  defaultperimeter   *poly active 55.27
+ defaultoverlap     *poly active nwell,pwell well  106.13
  defaultsideoverlap *poly active nwell,pwell well  55.27
 
 #locali
@@ -2110,6 +2117,442 @@ defaultareacap     nwell well dnwell dwell 120
  defaultoverlap     allm5 metal5 allm4 metal4 68.33
  defaultsideoverlap allm5 metal5 allm4 metal4 82.82
  defaultsideoverlap allm4 metal4 allm5 metal5 46.98
+
+#-------------------------------------------------------------------------
+# Parasitic capacitance values for minimum corner
+#-------------------------------------------------------------------------
+
+variants (hrlc),(lrlc)
+# Minimum corner capacitances
+
+#deep n-well
+defaultareacap     dnwell dwell 120
+
+#p-well
+defaultoverlap     pwell well dnwell dwell 120
+
+#n-well
+# NOTE:  This value not found in PEX files
+defaultareacap     nwell well dnwell dwell 120
+
+#n-active
+# Rely on device models to capture *ndiff area cap
+# Do not extract parasitics from resistors
+# defaultareacap     allnactivenonfet active 790
+# defaultperimeter   allnactivenonfet active 280
+
+#p-active
+# Rely on device models to capture *pdiff area cap
+# Do not extract parasitics from resistors
+# defaultareacap     allpactivenonfet active 810
+# defaultperimeter   allpactivenonfet active 300
+
+#poly
+# Do not extract parasitics from resistors
+# defaultsidewall    allpolynonfet active  22
+# defaultareacap     allpolynonfet active  80.4
+# defaultperimeter   allpolynonfet active   57
+
+ defaultsidewall    *poly active 17.0	0.21
+ defaultareacap     *poly active 80.4
+ defaultperimeter   *poly active 48.83
+ defaultoverlap     *poly active nwell,pwell well  80.4
+ defaultsideoverlap *poly active nwell,pwell well  48.83
+
+#locali
+ defaultsidewall    allli locali 26.7	0.17
+ defaultareacap     allli locali 29.3
+ defaultperimeter   allli locali 35.69
+ defaultoverlap     allli locali nwell,pwell well  29.3
+ defaultsideoverlap allli locali nwell,pwell well  35.69
+
+#locali->diff
+ defaultoverlap     allli locali allactivenonfet active 45.3
+ defaultsideoverlap allli locali allactivenonfet active 39.59
+
+#locali->poly
+ defaultoverlap     allli locali allpolynonres active 64.5
+ defaultsideoverlap allli locali allpolynonres active 43.75
+ defaultsideoverlap *poly active allli locali 21.21
+
+#metal1
+ defaultsidewall    allm1 metal1 35.6	0.14
+ defaultareacap     allm1 metal1 20.2
+ defaultperimeter   allm1 metal1 34.41
+ defaultoverlap     allm1 metal1 nwell,pwell well  20.2
+ defaultsideoverlap allm1 metal1 nwell,pwell well  34.41
+
+#metal1->diff
+ defaultoverlap     allm1 metal1 allactivenonfet active 26.7
+ defaultsideoverlap allm1 metal1 allactivenonfet active 37.22
+
+#metal1->poly
+ defaultoverlap     allm1 metal1 allpolynonres active 32.3
+ defaultsideoverlap allm1 metal1 allpolynonres active 40.34
+ defaultsideoverlap *poly active allm1 metal1 14.41
+
+#metal1->locali
+ defaultoverlap     allm1 metal1 allli locali 77.2
+ defaultsideoverlap allm1 metal1 allli locali 49.46
+ defaultsideoverlap allli locali allm1 metal1 28.84
+
+#metal2
+ defaultsidewall    allm2 metal2      37.61	0.14
+
+ defaultareacap     allm2 metal2 14.0
+ defaultperimeter   allm2 metal2 32.60
+ defaultoverlap     allm2 metal2 nwell,pwell well 14.0
+ defaultsideoverlap allm2 metal2 nwell,pwell well 32.60
+
+#metal2->diff
+ defaultoverlap     allm2 metal2 allactivenonfet active 16.8
+ defaultsideoverlap allm2 metal2 allactivenonfet active 34.16
+
+#metal2->poly
+ defaultoverlap     allm2 metal2 allpolynonres active 18.9
+ defaultsideoverlap allm2 metal2 allpolynonres active 34.46
+ defaultsideoverlap *poly active allm2 metal2 9.34
+
+#metal2->locali
+ defaultoverlap     allm2 metal2 allli locali 28.6
+ defaultsideoverlap allm2 metal2 allli locali 39.67
+ defaultsideoverlap allli locali allm2 metal2 18.63
+
+#metal2->metal1
+ defaultoverlap     allm2 metal2 allm1 metal1 80.4
+ defaultsideoverlap allm2 metal2 allm1 metal1 53.85
+ defaultsideoverlap allm1 metal1 allm2 metal2 38.70
+
+
+#metal3
+ defaultsidewall    allm3 metal3     52.0	0.30
+
+ defaultareacap     allm3 metal3 10.2
+ defaultperimeter   allm3 metal3 36.05
+ defaultoverlap     allm3 metal3 nwell,pwell well 10.2
+ defaultsideoverlap allm3 metal3 nwell,pwell well 36.05
+
+#metal3->diff
+ defaultoverlap     allm3 metal3 allactive active 11.7
+ defaultsideoverlap allm3 metal3 allactive active 37.59
+
+#metal3->poly
+ defaultoverlap     allm3 metal3 allpolynonres active 12.6
+ defaultsideoverlap allm3 metal3 allpolynonres active 38.28
+ defaultsideoverlap *poly active allm3 metal3 8.07
+
+#metal3->locali
+ defaultoverlap     allm3 metal3 allli locali 16.3
+ defaultsideoverlap allm3 metal3 allli locali 41.75
+ defaultsideoverlap allli locali allm3 metal3 13.48
+
+#metal3->metal1
+ defaultoverlap     allm3 metal3 allm1 metal1 25.8
+ defaultsideoverlap allm3 metal3 allm1 metal1 48.82
+ defaultsideoverlap allm1 metal1 allm3 metal3 23.76
+
+
+#metal3->metal2
+ defaultoverlap     allm3 metal3 allm2 metal2 59.5
+ defaultsideoverlap allm3 metal3 allm2 metal2 61.18
+ defaultsideoverlap allm2 metal2 allm3 metal3 38.92
+
+#metal4
+ defaultsidewall    allm4 metal4 53.7	0.30
+ defaultareacap     allm4 metal4 7.28
+ defaultperimeter   allm4 metal4 32.39
+ defaultoverlap     allm4 metal4 nwell,pwell well 7.28
+ defaultsideoverlap allm4 metal4 nwell,pwell well 32.39
+
+#metal4->diff
+ defaultoverlap     allm4 metal4 allactivenonfet active 7.98
+ defaultsideoverlap allm4 metal4 allactivenonfet active 33.54
+
+#metal4->poly
+ defaultoverlap     allm4 metal4 allpolynonres active 8.42
+ defaultsideoverlap allm4 metal4 allpolynonres active 33.59
+ defaultsideoverlap *poly active allm4 metal4 5.60
+
+#metal4->locali
+ defaultoverlap     allm4 metal4 allli locali 9.92
+ defaultsideoverlap allm4 metal4 allli locali 35.49
+ defaultsideoverlap allli locali allm4 metal4 9.06
+
+#metal4->metal1
+ defaultoverlap     allm4 metal4 allm1 metal1 12.8
+ defaultsideoverlap allm4 metal4 allm1 metal1 38.29
+ defaultsideoverlap allm1 metal1 allm4 metal4 14.77
+
+
+#metal4->metal2
+ defaultoverlap     allm4 metal4 allm2 metal2 17.8
+ defaultsideoverlap allm4 metal4 allm2 metal2 42.08
+ defaultsideoverlap allm2 metal2 allm4 metal4 20.26
+
+#metal4->metal3
+ defaultoverlap     allm4 metal4 allm3 metal3 57.6
+ defaultsideoverlap allm4 metal4 allm3 metal3 59.42
+ defaultsideoverlap allm3 metal3 allm4 metal4 35.93
+
+#metal5
+ defaultsidewall    allm5 metal5 81.5	1.6
+ defaultareacap     allm5 metal5 5.56
+ defaultperimeter   allm5 metal5 34.65
+ defaultoverlap     allm5 metal5 nwell,pwell well  5.56
+ defaultsideoverlap allm5 metal5 nwell,pwell well  34.65
+
+#metal5->diff
+ defaultoverlap     allm5 metal5 allactivenonfet active 5.96
+ defaultsideoverlap allm5 metal5 allactivenonfet active 35.55
+
+#metal5->poly
+ defaultoverlap     allm5 metal5 allpolynonres active 6.2
+ defaultsideoverlap allm5 metal5 allpolynonres active 35.59
+ defaultsideoverlap *poly active allm5 metal5 5.79
+
+#metal5->locali
+ defaultoverlap     allm5 metal5 allli locali 6.97
+ defaultsideoverlap allm5 metal5 allli locali 37.24
+ defaultsideoverlap allli locali allm5 metal5 6.91
+
+#metal5->metal1
+ defaultoverlap     allm5 metal5 allm1 metal1 8.26
+ defaultsideoverlap allm5 metal5 allm1 metal1 39.30
+ defaultsideoverlap allm1 metal1 allm5 metal5 10.94
+
+
+#metal5->metal2
+ defaultoverlap     allm5 metal5 allm2 metal2 10.1
+ defaultsideoverlap allm5 metal5 allm2 metal2 41.75
+ defaultsideoverlap allm2 metal2 allm5 metal5 14.37
+
+#metal5->metal3
+ defaultoverlap     allm5 metal5 allm3 metal3 16.7
+ defaultsideoverlap allm5 metal5 allm3 metal3 48.75
+ defaultsideoverlap allm3 metal3 allm5 metal5 25.06
+
+#metal5->metal4
+ defaultoverlap     allm5 metal5 allm4 metal4 48.7
+ defaultsideoverlap allm5 metal5 allm4 metal4 70.26
+ defaultsideoverlap allm4 metal4 allm5 metal5 39.86
+
+#-------------------------------------------------------------------------
+# Parasitic capacitance values for maximum corner
+#-------------------------------------------------------------------------
+
+variants (hrhc),(lrhc)
+# Maximum corner capacitances
+
+#deep n-well
+defaultareacap     dnwell dwell 120
+
+#p-well
+defaultoverlap     pwell well dnwell dwell 120
+
+#n-well
+# NOTE:  This value not found in PEX files
+defaultareacap     nwell well dnwell dwell 120
+
+#n-active
+# Rely on device models to capture *ndiff area cap
+# Do not extract parasitics from resistors
+# defaultareacap     allnactivenonfet active 790
+# defaultperimeter   allnactivenonfet active 280
+
+#p-active
+# Rely on device models to capture *pdiff area cap
+# Do not extract parasitics from resistors
+# defaultareacap     allpactivenonfet active 810
+# defaultperimeter   allpactivenonfet active 300
+
+#poly
+# Do not extract parasitics from resistors
+# defaultsidewall    allpolynonfet active  22
+# defaultareacap     allpolynonfet active  106
+# defaultperimeter   allpolynonfet active   57
+
+ defaultsidewall    *poly active 17.0	0.21
+ defaultareacap     *poly active 155.0
+ defaultperimeter   *poly active 64.82
+ defaultoverlap     *poly active nwell,pwell well  155.0
+ defaultsideoverlap *poly active nwell,pwell well  64.82
+
+#locali
+ defaultsidewall    allli locali 28.7	0.17
+ defaultareacap     allli locali 49.7
+ defaultperimeter   allli locali 47.02
+ defaultoverlap     allli locali nwell,pwell well  49.7
+ defaultsideoverlap allli locali nwell,pwell well  47.02
+
+#locali->diff
+ defaultoverlap     allli locali allactivenonfet active 70.9
+ defaultsideoverlap allli locali allactivenonfet active 49.94
+
+#locali->poly
+ defaultoverlap     allli locali allpolynonres active 174.0
+ defaultsideoverlap allli locali allpolynonres active 66.60
+ defaultsideoverlap *poly active allli locali 32.29
+
+#metal1
+ defaultsidewall    allm1 metal1 37.6	0.14
+ defaultareacap     allm1 metal1 35.7
+ defaultperimeter   allm1 metal1 49.59
+ defaultoverlap     allm1 metal1 nwell,pwell well  35.7
+ defaultsideoverlap allm1 metal1 nwell,pwell well  49.59
+
+#metal1->diff
+ defaultoverlap     allm1 metal1 allactivenonfet active 45.4
+ defaultsideoverlap allm1 metal1 allactivenonfet active 51.17
+
+#metal1->poly
+ defaultoverlap     allm1 metal1 allpolynonres active 73.2
+ defaultsideoverlap allm1 metal1 allpolynonres active 59.78
+ defaultsideoverlap *poly active allm1 metal1 21.36
+
+#metal1->locali
+ defaultoverlap     allm1 metal1 allli locali 215.0
+ defaultsideoverlap allm1 metal1 allli locali 80.12
+ defaultsideoverlap allli locali allm1 metal1 46.73
+
+#metal2
+ defaultsidewall    allm2 metal2      40.2	0.14
+
+ defaultareacap     allm2 metal2 23.5
+ defaultperimeter   allm2 metal2 46.03
+ defaultoverlap     allm2 metal2 nwell,pwell well 23.5
+ defaultsideoverlap allm2 metal2 nwell,pwell well 46.03
+
+#metal2->diff
+ defaultoverlap     allm2 metal2 allactivenonfet active 27.4
+ defaultsideoverlap allm2 metal2 allactivenonfet active 47.45
+
+#metal2->poly
+ defaultoverlap     allm2 metal2 allpolynonres active 35.5
+ defaultsideoverlap allm2 metal2 allpolynonres active 51.29
+ defaultsideoverlap *poly active allm2 metal2 13.90
+
+#metal2->locali
+ defaultoverlap     allm2 metal2 allli locali 52.3
+ defaultsideoverlap allm2 metal2 allli locali 55.56
+ defaultsideoverlap allli locali allm2 metal2 26.10
+
+#metal2->metal1
+ defaultoverlap     allm2 metal2 allm1 metal1 313.0
+ defaultsideoverlap allm2 metal2 allm1 metal1 102.37
+ defaultsideoverlap allm1 metal1 allm2 metal2 73.576
+
+
+#metal3
+ defaultsidewall    allm3 metal3     60.6	0.30
+
+ defaultareacap     allm3 metal3 16.3
+ defaultperimeter   allm3 metal3 47.38
+ defaultoverlap     allm3 metal3 nwell,pwell well 16.3
+ defaultsideoverlap allm3 metal3 nwell,pwell well 47.38
+
+#metal3->diff
+ defaultoverlap     allm3 metal3 allactive active 18.1
+ defaultsideoverlap allm3 metal3 allactive active 48.19
+
+#metal3->poly
+ defaultoverlap     allm3 metal3 allpolynonres active 21.3
+ defaultsideoverlap allm3 metal3 allpolynonres active 50.44
+ defaultsideoverlap *poly active allm3 metal3 10.64
+
+#metal3->locali
+ defaultoverlap     allm3 metal3 allli locali 26.3
+ defaultsideoverlap allm3 metal3 allli locali 53.29
+ defaultsideoverlap allli locali allm3 metal3 17.20
+
+#metal3->metal1
+ defaultoverlap     allm3 metal3 allm1 metal1 45.2
+ defaultsideoverlap allm3 metal3 allm1 metal1 62.88
+ defaultsideoverlap allm1 metal1 allm3 metal3 30.61
+
+
+#metal3->metal2
+ defaultoverlap     allm3 metal3 allm2 metal2 131.0
+ defaultsideoverlap allm3 metal3 allm2 metal2 82.67
+ defaultsideoverlap allm2 metal2 allm3 metal3 52.59
+
+#metal4
+ defaultsidewall    allm4 metal4 65.4	0.30
+ defaultareacap     allm4 metal4 10.7
+ defaultperimeter   allm4 metal4 42.40
+ defaultoverlap     allm4 metal4 nwell,pwell well 10.7
+ defaultsideoverlap allm4 metal4 nwell,pwell well 42.40
+
+#metal4->diff
+ defaultoverlap     allm4 metal4 allactivenonfet active 11.4
+ defaultsideoverlap allm4 metal4 allactivenonfet active 43.0
+
+#metal4->poly
+ defaultoverlap     allm4 metal4 allpolynonres active 12.6
+ defaultsideoverlap allm4 metal4 allpolynonres active 43.99
+ defaultsideoverlap *poly active allm4 metal4 7.33
+
+#metal4->locali
+ defaultoverlap     allm4 metal4 allli locali 14.3
+ defaultsideoverlap allm4 metal4 allli locali 45.09
+ defaultsideoverlap allli locali allm4 metal4 11.51
+
+#metal4->metal1
+ defaultoverlap     allm4 metal4 allm1 metal1 18.5
+ defaultsideoverlap allm4 metal4 allm1 metal1 48.07
+ defaultsideoverlap allm1 metal1 allm4 metal4 18.55
+
+
+#metal4->metal2
+ defaultoverlap     allm4 metal4 allm2 metal2 25.2
+ defaultsideoverlap allm4 metal4 allm2 metal2 51.98
+ defaultsideoverlap allm2 metal2 allm4 metal4 25.03
+
+#metal4->metal3
+ defaultoverlap     allm4 metal4 allm3 metal3 191.0
+ defaultsideoverlap allm4 metal4 allm3 metal3 92.12
+ defaultsideoverlap allm3 metal3 allm4 metal4 55.70
+
+#metal5
+ defaultsidewall    allm5 metal5 118.7	1.6
+ defaultareacap     allm5 metal5 7.76
+ defaultperimeter   allm5 metal5 44.91
+ defaultoverlap     allm5 metal5 nwell,pwell well  7.76
+ defaultsideoverlap allm5 metal5 nwell,pwell well  44.91
+
+#metal5->diff
+ defaultoverlap     allm5 metal5 allactivenonfet active 8.14
+ defaultsideoverlap allm5 metal5 allactivenonfet active 45.47
+
+#metal5->poly
+ defaultoverlap     allm5 metal5 allpolynonres active 8.74
+ defaultsideoverlap allm5 metal5 allpolynonres active 46.31
+ defaultsideoverlap *poly active allm5 metal5 7.53
+
+#metal5->locali
+ defaultoverlap     allm5 metal5 allli locali 9.48
+ defaultsideoverlap allm5 metal5 allli locali 47.09
+ defaultsideoverlap allli locali allm5 metal5 8.74
+
+#metal5->metal1
+ defaultoverlap     allm5 metal5 allm1 metal1 11.2
+ defaultsideoverlap allm5 metal5 allm1 metal1 49.44
+ defaultsideoverlap allm1 metal1 allm5 metal5 13.76
+
+
+#metal5->metal2
+ defaultoverlap     allm5 metal5 allm2 metal2 13.3
+ defaultsideoverlap allm5 metal5 allm2 metal2 51.69
+ defaultsideoverlap allm2 metal2 allm5 metal5 17.79
+
+#metal5->metal3
+ defaultoverlap     allm5 metal5 allm3 metal3 24.6
+ defaultsideoverlap allm5 metal5 allm3 metal3 63.24
+ defaultsideoverlap allm3 metal3 allm5 metal5 32.51
+
+#metal5->metal4
+ defaultoverlap     allm5 metal5 allm4 metal4 115.0
+ defaultsideoverlap allm5 metal5 allm4 metal4 109.69
+ defaultsideoverlap allm4 metal4 allm5 metal5 62.22
 
 variants *
 
